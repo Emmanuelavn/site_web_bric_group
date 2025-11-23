@@ -1,0 +1,36 @@
+{
+  "name": "ContactMessage",
+  "type": "object",
+  "properties": {
+    "nom": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "sujet": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "statut": {
+      "type": "string",
+      "enum": [
+        "nouveau",
+        "lu",
+        "repondu"
+      ],
+      "default": "nouveau"
+    }
+  },
+  "required": [
+    "nom",
+    "email",
+    "message"
+  ]
+}

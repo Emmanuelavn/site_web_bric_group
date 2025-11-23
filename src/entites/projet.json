@@ -1,0 +1,50 @@
+{
+  "name": "Projet",
+  "type": "object",
+  "properties": {
+    "titre": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "categorie": {
+      "type": "string",
+      "enum": [
+        "residentiel",
+        "commercial",
+        "infrastructure",
+        "renovation"
+      ]
+    },
+    "localisation": {
+      "type": "string"
+    },
+    "superficie": {
+      "type": "string"
+    },
+    "duree": {
+      "type": "string"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "image_principale": {
+      "type": "string"
+    },
+    "statut": {
+      "type": "string",
+      "enum": [
+        "termine",
+        "en_cours"
+      ]
+    }
+  },
+  "required": [
+    "titre",
+    "categorie"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "T\u00e9moignage",
+  "type": "object",
+  "properties": {
+    "nom_client": {
+      "type": "string"
+    },
+    "profession": {
+      "type": "string"
+    },
+    "texte": {
+      "type": "string"
+    },
+    "note": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "projet_type": {
+      "type": "string"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "afficher": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "nom_client",
+    "texte",
+    "note"
+  ]
+}

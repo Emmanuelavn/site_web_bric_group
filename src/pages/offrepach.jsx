@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "utils";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { base44 } from "@/api/base44Client";
 import { useMutation } from "@tanstack/react-query";
 import { Home, CheckCircle, ArrowLeft, Send } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
+import { Input } from "components/ui/input";
+import { Label } from "components/ui/label";
+import { Textarea } from "components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "components/ui/select";
+import { Checkbox } from "components/ui/checkbox";
+import { base44 } from "api/base44Client";
+
+import { Alert, AlertDescription } from "components/ui/alert";
 
 const offresData = {
   "F2_40m2": { nom: "F2 - 40m²", prix: 4800000, acompte: 3500000 },

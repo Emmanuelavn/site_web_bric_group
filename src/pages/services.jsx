@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "utils";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "components/ui/card";
+import { Button } from "components/ui/button";
 import { 
   Building2, 
   Wrench, 

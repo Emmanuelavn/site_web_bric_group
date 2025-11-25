@@ -33,7 +33,7 @@ export default function Accueil() {
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920')"
+            backgroundImage: "url('/images/plan_acceuil/plan1.jpg')"
           }}
         ></div>
 

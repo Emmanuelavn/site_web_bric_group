@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { base44 } from "@/api/base44Client";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { base44 } from "api/base44Client";
+import { Card } from "components/ui/card";
+import { Button } from "components/ui/button";
 import { motion } from "framer-motion";
 import { Building2, MapPin, Calendar } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "components/ui/skeleton";
 
 export default function Projets() {
   const [filter, setFilter] = useState("tous");

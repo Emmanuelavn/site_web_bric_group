@@ -8,10 +8,13 @@ import MotionContainer, { fadeUp } from "components/ui/motion";
 import { Building2, MapPin, Calendar } from "lucide-react";
 import { Skeleton } from "components/ui/skeleton";
 import { Input } from "components/ui/input";
+import ProjectModal from "components/ui/project-modal";
 
 export default function Projets() {
   const [filter, setFilter] = useState("tous");
   const [q, setQ] = useState("");
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { data: projets = [], isLoading } = useQuery({
     queryKey: ['projets'],
@@ -112,7 +115,7 @@ export default function Projets() {
                   transition={{ delay: index * 0.05 }}
                 >
                   <motion.div whileHover={{ scale: 1.02 }} className="h-full">
-                    <Card className="overflow-hidden transition-all h-full hover:shadow-2xl">
+                    <Card onClick={() => { setSelectedProject(projet); setModalOpen(true); }} className="overflow-hidden transition-all h-full hover:shadow-2xl cursor-pointer">
                       <div className="relative group">
                         <img
                           src={projet.image_principale || "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80"}
@@ -175,6 +178,8 @@ export default function Projets() {
           )}
         </div>
       </section>
+      {/* Project Modal */}
+      <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} project={selectedProject} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Phone, Mail, ChevronDown, Menu, Facebook, Instagram, Linkedin } from "lucide-react";
+import { motion } from 'framer-motion';
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import {
@@ -110,11 +111,7 @@ export default function Layout({ children }) {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_68f68b45ac0cf0f405212fe6/f7f3721d7_logo-web.jpg" 
-                alt="BRIC GROUP AFRICA"
-                className="h-14 w-auto"
-              />
+              <motion.img whileHover={{ scale: 1.05 }} src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_68f68b45ac0cf0f405212fe6/f7f3721d7_logo-web.jpg" alt="BRIC GROUP AFRICA" className="h-14 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -123,16 +120,15 @@ export default function Layout({ children }) {
                 item.hasDropdown ? (
                   <DropdownMenu key={item.title}>
                     <DropdownMenuTrigger asChild>
-                      <button
-                        className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium flex items-center gap-1 ${
-                          isActive(item.url)
-                            ? "bg-[#2d7a4b] text-white"
-                            : "text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a4b]"
-                        }`}
+                      <motion.button whileHover={{ y: -3 }} className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium flex items-center gap-1 ${
+                        isActive(item.url)
+                          ? "bg-[#2d7a4b] text-white"
+                          : "text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a4b]"
+                      }`}
                       >
                         {item.title}
                         <ChevronDown className="w-4 h-4" />
-                      </button>
+                      </motion.button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-72 bg-white shadow-xl border-none">
                       {item.subItems.map((subItem) => (
@@ -148,17 +144,18 @@ export default function Layout({ children }) {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 ) : (
-                  <Link
-                    key={item.title}
-                    to={item.url}
-                    className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
-                      isActive(item.url)
-                        ? "bg-[#2d7a4b] text-white"
-                        : "text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a4b]"
-                    }`}
-                  >
-                    {item.title}
-                  </Link>
+                  <motion.div key={item.title} whileHover={{ y: -3 }}>
+                    <Link
+                      to={item.url}
+                      className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
+                        isActive(item.url)
+                          ? "bg-[#2d7a4b] text-white"
+                          : "text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a4b]"
+                      }`}
+                    >
+                      {item.title}
+                    </Link>
+                  </motion.div>
                 )
               ))}
             </div>

@@ -7,6 +7,7 @@ import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
 import { MapPin, Phone, Mail, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "../components/ui/alert";
+import { motion } from 'framer-motion';
 import MotionContainer, { fadeUp } from "components/ui/motion";
 
 export default function Contact() {

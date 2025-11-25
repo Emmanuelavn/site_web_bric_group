@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import MotionContainer, { fadeUp, HoverScale } from "../components/ui/motion";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { 
@@ -39,32 +40,32 @@ export default function Accueil() {
 
         {/* Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          <MotionContainer>
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-bold mb-6">
               Construisons Ensemble<br />
               <span className="text-[#e8f5e9]">Votre Avenir</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto">
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto">
               Expert en construction, rénovation et gestion immobilière au Bénin et en Afrique
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/programme_pach">
-                <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
-                  Découvrir le Programme PACH
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <HoverScale>
+                  <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+                    Découvrir le Programme PACH
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </HoverScale>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#2d7a4b] text-lg px-8 py-6">
-                  Nous Contacter
-                </Button>
+                <HoverScale>
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#2d7a4b] text-lg px-8 py-6">
+                    Nous Contacter
+                  </Button>
+                </HoverScale>
               </Link>
-            </div>
-          </motion.div>
+            </motion.div>
+          </MotionContainer>
         </div>
 
         {/* Scroll Indicator */}

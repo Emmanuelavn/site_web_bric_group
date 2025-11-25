@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Animated gradient background utility */
+@keyframes gradientShift {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+	background: linear-gradient(270deg, #2d7a4b, #4a9d6f, #4d9fb8, #2d7a4b);
+	background-size: 800% 800%;
+	animation: gradientShift 18s ease infinite;
+}
+
+/* Subtle card glow on hover */
+.card-glow {
+	transition: box-shadow .28s ease, transform .28s ease;
+}
+.card-glow:hover {
+	box-shadow: 0 10px 30px rgba(45,122,75,0.14), 0 6px 12px rgba(74,157,111,0.06);
+	transform: translateY(-6px);
+}
+
+/* Accent focus for interactive elements */
+.focus-ring:focus {
+	outline: none;
+	box-shadow: 0 0 0 4px rgba(45,122,75,0.12);
+}

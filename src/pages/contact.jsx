@@ -7,6 +7,7 @@ import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
 import { MapPin, Phone, Mail, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "../components/ui/alert";
+import MotionContainer, { fadeUp } from "components/ui/motion";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -55,15 +56,17 @@ export default function Contact() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#2d7a4b] to-[#4a9d6f] text-white py-20">
+      <section className="bg-gradient-to-br from-[#2d7a4b] to-[#4a9d6f] text-white py-20 animated-gradient">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Contactez-Nous
-            </h1>
-            <p className="text-xl text-gray-100">
-              Notre équipe est prête à répondre à toutes vos questions
-            </p>
+            <MotionContainer>
+              <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-bold mb-6">
+                Contactez-Nous
+              </motion.h1>
+              <motion.p variants={fadeUp} className="text-xl text-gray-100">
+                Notre équipe est prête à répondre à toutes vos questions
+              </motion.p>
+            </MotionContainer>
           </div>
         </div>
       </section>

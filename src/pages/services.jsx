@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "utils";
 import { motion } from "framer-motion";
+import MotionContainer, { fadeUp, HoverScale } from "components/ui/motion";
 import { Card, CardContent } from "components/ui/card";
 import { Button } from "components/ui/button";
 import { 
@@ -130,25 +131,20 @@ export default function Services() {
         }}></div>
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center text-white"
-          >
-            <div className="inline-block bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <MotionContainer className="text-center text-white">
+            <motion.div variants={fadeUp} className="inline-block bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
               🏆 Expertise & Professionnalisme
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            </motion.div>
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-6xl font-bold mb-6">
               Nos Services
-            </h1>
-            <p className="text-2xl mb-4 text-gray-100 max-w-3xl mx-auto">
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-2xl mb-4 text-gray-100 max-w-3xl mx-auto">
               Des Solutions Complètes pour Tous Vos Projets Immobiliers
-            </p>
-            <p className="text-lg text-gray-200 max-w-2xl mx-auto">
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-lg text-gray-200 max-w-2xl mx-auto">
               Construction, Rénovation, Gestion Immobilière, Études et Événementiel
-            </p>
-          </motion.div>
+            </motion.p>
+          </MotionContainer>
         </div>
       </section>
 

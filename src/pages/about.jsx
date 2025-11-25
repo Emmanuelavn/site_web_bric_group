@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "components/ui/card";
 import { Target, Eye, Heart, Shield, Users, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
+import MotionContainer, { fadeUp } from "components/ui/motion";
 
 export default function APropos() {
   const valeurs = [
@@ -32,18 +33,14 @@ export default function APropos() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-[#2d7a4b] to-[#4a9d6f] text-white py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <MotionContainer className="text-center max-w-3xl mx-auto">
+            <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-bold mb-6">
               À Propos de BRIC GROUP Africa
-            </h1>
-            <p className="text-xl text-gray-100">
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-xl text-gray-100">
               Votre partenaire de confiance pour tous vos projets immobiliers au Bénin et en Afrique
-            </p>
-          </motion.div>
+            </motion.p>
+          </MotionContainer>
         </div>
       </section>
 

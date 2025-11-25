@@ -4,7 +4,7 @@ import { base44 } from "api/base44Client";
 import { useLocation } from "react-router-dom";
 import { Card } from "components/ui/card";
 import { Button } from "components/ui/button";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import MotionContainer, { fadeUp } from "components/ui/motion";
 import { Building2, MapPin, Calendar } from "lucide-react";
 import { Skeleton } from "components/ui/skeleton";
@@ -125,78 +125,82 @@ export default function Projets() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProjets.map((projet, index) => (
-                <motion.div
-                  key={projet.id}
-                  id={projet.id}
-                  layout
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <motion.div layout whileHover={{ scale: 1.02 }} className="h-full">
-                    <article id={projet.id}>
-                    <Card onClick={() => { setSelectedProject(projet); setModalOpen(true); }} className="overflow-hidden transition-all h-full hover:shadow-2xl cursor-pointer">
-                      <div className="relative group">
-                        <img
-                          src={projet.image_principale || "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80"}
-                          alt={projet.titre}
-                          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute top-4 left-4">
-                          <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-[#2d7a4b] uppercase">
-                            {projet.categorie}
-                          </span>
-                        </div>
-                        {projet.statut && (
-                          <div className="absolute top-4 right-4">
-                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                              projet.statut === 'termine'
-                                ? 'bg-green-500 text-white'
-                                : 'bg-yellow-500 text-white'
-                            }`}>
-                              {projet.statut === 'termine' ? 'Terminé' : 'En cours'}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          {projet.titre}
-                        </h3>
-                        {projet.description && (
-                          <p className="text-gray-600 mb-4 line-clamp-2">
-                            {projet.description}
-                          </p>
-                        )}
-                        <div className="flex flex-wrap gap-4 items-center text-sm text-gray-500">
-                          {projet.localisation && (
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4" />
-                              {projet.localisation}
+              <AnimatePresence mode="popLayout">
+                {filteredProjets.map((projet, index) => {
+                  return (
+                    <motion.div
+                      key={projet.id}
+                      layout
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.28, delay: index * 0.03 }}
+                    >
+                      <motion.div layout whileHover={{ scale: 1.02 }} className="h-full">
+                        <article id={projet.id}>
+                          <Card onClick={() => { setSelectedProject(projet); setModalOpen(true); }} className="overflow-hidden transition-all h-full hover:shadow-2xl cursor-pointer">
+                            <div className="relative group">
+                              <img
+                                src={projet.image_principale || "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=600&q=80"}
+                                alt={projet.titre}
+                                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                                loading="lazy"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <div className="absolute top-4 left-4">
+                                <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-[#2d7a4b] uppercase">
+                                  {projet.categorie}
+                                </span>
+                              </div>
+                              {projet.statut && (
+                                <div className="absolute top-4 right-4">
+                                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                    projet.statut === 'termine'
+                                      ? 'bg-green-500 text-white'
+                                      : 'bg-yellow-500 text-white'
+                                  }`}>
+                                    {projet.statut === 'termine' ? 'Terminé' : 'En cours'}
+                                  </span>
+                                </div>
+                              )}
                             </div>
-                          )}
-                          {projet.superficie && (
-                            <div className="flex items-center gap-2">
-                              <Building2 className="w-4 h-4" />
-                              {projet.superficie}
+                            <div className="p-6">
+                              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                                {projet.titre}
+                              </h3>
+                              {projet.description && (
+                                <p className="text-gray-600 mb-4 line-clamp-2">
+                                  {projet.description}
+                                </p>
+                              )}
+                              <div className="flex flex-wrap gap-4 items-center text-sm text-gray-500">
+                                {projet.localisation && (
+                                  <div className="flex items-center gap-2">
+                                    <MapPin className="w-4 h-4" />
+                                    {projet.localisation}
+                                  </div>
+                                )}
+                                {projet.superficie && (
+                                  <div className="flex items-center gap-2">
+                                    <Building2 className="w-4 h-4" />
+                                    {projet.superficie}
+                                  </div>
+                                )}
+                                {projet.duree && (
+                                  <div className="flex items-center gap-2">
+                                    <Calendar className="w-4 h-4" />
+                                    Durée: {projet.duree}
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          )}
-                          {projet.duree && (
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4" />
-                              Durée: {projet.duree}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </Card>
-                    </article>
-                  </motion.div>
-                </motion.div>
-              ))}
+                          </Card>
+                        </article>
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
           )}
         </div>

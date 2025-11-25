@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { PageTransition, usePrefersReducedMotion } from './components/ui/motion';
 import Layout from './layout/layout.jsx';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/acceuil.jsx';
@@ -15,23 +17,33 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="bg-blue-100 min-h-screen">
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/apropos" element={<About />} />
-            <Route path="/prestations" element={<Prestations />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/programmepach" element={<ProgrammePach />} />
-            <Route path="/projets" element={<Projects />} />
-            <Route path="/offrepach" element={<Offrepach />} />
-            {/* Fallback route: redirect unknown paths to home (adjust if you want a 404 page) */}
+      <InnerApp />
+    </Router>
+  );
+}
+
+function InnerApp() {
+  const location = useLocation();
+  const reduced = usePrefersReducedMotion();
+
+  return (
+    <div className="bg-blue-100 min-h-screen">
+      <Layout>
+        <AnimatePresence mode="wait" initial={false}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<PageTransition reducedMotion={reduced}><Home /></PageTransition>} />
+            <Route path="/contact" element={<PageTransition reducedMotion={reduced}><Contact /></PageTransition>} />
+            <Route path="/apropos" element={<PageTransition reducedMotion={reduced}><About /></PageTransition>} />
+            <Route path="/prestations" element={<PageTransition reducedMotion={reduced}><Prestations /></PageTransition>} />
+            <Route path="/services" element={<PageTransition reducedMotion={reduced}><Services /></PageTransition>} />
+            <Route path="/programmepach" element={<PageTransition reducedMotion={reduced}><ProgrammePach /></PageTransition>} />
+            <Route path="/projets" element={<PageTransition reducedMotion={reduced}><Projects /></PageTransition>} />
+            <Route path="/offrepach" element={<PageTransition reducedMotion={reduced}><Offrepach /></PageTransition>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </Layout>
-      </div>
-    </Router>
+        </AnimatePresence>
+      </Layout>
+    </div>
   );
 }
 

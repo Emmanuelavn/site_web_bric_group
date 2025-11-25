@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Award, Users, Building2, CheckCircle } from "lucide-react";
+import CountUp from "components/ui/countup";
 
 const stats = [
   { icon: Award, value: "10+", label: "Années d'Expérience" },
@@ -26,7 +27,12 @@ export default function StatsSection() {
               <div className="w-16 h-16 bg-[#e8f5e9] rounded-full flex items-center justify-center mx-auto mb-4">
                 <stat.icon className="w-8 h-8 text-[#2d7a4b]" />
               </div>
-              <div className="text-4xl font-bold text-[#2d7a4b] mb-2">{stat.value}</div>
+                <div className="text-4xl font-bold text-[#2d7a4b] mb-2">{
+                  // If value contains non-digit (like % or +), keep suffix
+                  typeof stat.value === 'string' && /[^0-9]/.test(stat.value)
+                    ? <><CountUp end={stat.value} duration={1400} formatter={(v)=> (String(stat.value).replace(/[0-9]+/, String(v))) } /></>
+                    : <CountUp end={parseInt(String(stat.value).replace(/\D/g,''),10) || 0} duration={1400} />
+                }</div>
               <div className="text-gray-600 font-medium">{stat.label}</div>
             </motion.div>
           ))}

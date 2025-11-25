@@ -40,3 +40,30 @@ export function HoverScale({ children, className = '', ...props }) {
 }
 
 export default MotionContainer;
+
+// Page transition variants and wrapper
+export const pageVariants = {
+  initial: { opacity: 0, y: 8 },
+  in: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+  out: { opacity: 0, y: -8, transition: { duration: 0.35, ease: 'easeIn' } }
+};
+
+export function PageTransition({ children, className = '', reducedMotion = false }) {
+  if (reducedMotion) return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      className={className}
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function usePrefersReducedMotion() {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}

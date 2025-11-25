@@ -117,13 +117,13 @@ export default function Layout({ children }) {
 
       {/* Main Navigation */}
       <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-lg" : "bg-white/95"
+        isScrolled ? "bg-white shadow-lg backdrop-blur-sm" : "bg-white/95"
       }`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3">
-              <motion.img whileHover={{ scale: 1.05 }} src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_68f68b45ac0cf0f405212fe6/f7f3721d7_logo-web.jpg" alt="BRIC GROUP AFRICA" className="h-14 w-auto" />
+              <motion.img whileHover={{ scale: 1.05 }} src="/images/logo-web.jpg" alt="BRIC GROUP AFRICA" className={`w-auto transition-all ${isScrolled ? 'h-10' : 'h-14'}`} />
             </Link>
 
             {/* Desktop Navigation */}
@@ -157,17 +157,20 @@ export default function Layout({ children }) {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 ) : (
-                  <motion.div key={item.title} whileHover={{ y: -3 }}>
-                    <Link
-                      to={item.url}
-                      className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
-                        isActive(item.url)
-                          ? "bg-[#2d7a4b] text-white"
-                          : "text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a4b]"
-                      }`}
-                    >
-                      {item.title}
-                    </Link>
+                  <motion.div key={item.title} whileHover={{ y: -3 }} className="px-2">
+                    <div className="relative">
+                      <Link
+                        to={item.url}
+                        className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium inline-block ${
+                          isActive(item.url)
+                            ? "bg-[#2d7a4b] text-white"
+                            : "text-gray-700 hover:bg-[#e8f5e9] hover:text-[#2d7a4b]"
+                        }`}
+                      >
+                        {item.title}
+                      </Link>
+                      <span className={`absolute left-4 right-4 h-0.5 bg-[#2d7a4b] mt-2 transform origin-left transition-transform duration-300 ${isActive(item.url) ? 'scale-x-100' : 'scale-x-0'}`} />
+                    </div>
                   </motion.div>
                 )
               ))}
@@ -189,7 +192,7 @@ export default function Layout({ children }) {
                   <Menu className="h-6 w-6 text-[#2d7a4b]" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px]">
+              <SheetContent side="right" className="w-[300px] transition-transform duration-300">
                 <div className="flex flex-col gap-4 mt-8">
                   {navigationItems.map((item) => (
                     <div key={item.title}>
@@ -242,7 +245,7 @@ export default function Layout({ children }) {
             {/* About */}
             <div>
               <img 
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_68f68b45ac0cf0f405212fe6/f7f3721d7_logo-web.jpg" 
+                src="/images/logo-web.jpg" 
                 alt="BRIC GROUP"
                 className="h-12 mb-4 brightness-0 invert"
               />

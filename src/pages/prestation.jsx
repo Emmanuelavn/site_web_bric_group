@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "utils";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "components/ui/card";
@@ -151,6 +151,17 @@ const prestations = [
 
 export default function Prestations() {
   const sectionRefs = useRef({});
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      // allow render to complete
+      setTimeout(() => {
+        sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }, [location]);
 
   const scrollToSection = (id) => {
     sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -251,6 +262,7 @@ export default function Prestations() {
       {/* Sections Détaillées */}
       {prestations.map((prestation, index) => (
         <section 
+          id={prestation.id}
           key={prestation.id}
           ref={(el) => sectionRefs.current[prestation.id] = el}
           className={`py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}

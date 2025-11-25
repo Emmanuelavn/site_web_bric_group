@@ -2,7 +2,7 @@
 import React from "react";
 import { Phone, Mail, ChevronDown, Menu, Facebook, Instagram, Linkedin } from "lucide-react";
 import { motion } from 'framer-motion';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import {
   Sheet,
@@ -73,6 +73,18 @@ export default function Layout({ children }) {
     return location.pathname === url;
   };
 
+  const navigate = useNavigate();
+
+  const handleSubLinkClick = (e, url) => {
+    // Allow Link default when ctrl/meta click or external
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    // Use navigate to ensure location updates (including hash) even if pathname unchanged
+    navigate(url);
+    // Close mobile sheet if open
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <style>{`
@@ -135,6 +147,7 @@ export default function Layout({ children }) {
                         <DropdownMenuItem key={subItem.title} asChild>
                           <Link
                             to={subItem.url}
+                            onClick={(e) => handleSubLinkClick(e, subItem.url)}
                             className="w-full px-4 py-3 hover:bg-[#e8f5e9] hover:text-[#2d7a4b] cursor-pointer transition-colors flex items-center gap-2"
                           >
                             <span>{subItem.title}</span>
@@ -197,7 +210,7 @@ export default function Layout({ children }) {
                             <Link
                               key={subItem.title}
                               to={subItem.url}
-                              onClick={() => setMobileMenuOpen(false)}
+                              onClick={(e) => handleSubLinkClick(e, subItem.url)}
                               className="block px-4 py-2 text-sm text-gray-600 hover:text-[#2d7a4b] hover:bg-[#e8f5e9] rounded-lg transition-colors"
                             >
                               {subItem.title}

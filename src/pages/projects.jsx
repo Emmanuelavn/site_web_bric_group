@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { base44 } from "api/base44Client";
+import { useLocation } from "react-router-dom";
 import { Card } from "components/ui/card";
 import { Button } from "components/ui/button";
 import { motion } from "framer-motion";
@@ -29,6 +30,13 @@ export default function Projets() {
     { value: "renovation", label: "Rénovation" }
   ];
 
+  // derive categories dynamically from fetched projets
+  const dynamicCategories = useMemo(() => {
+    const cats = Array.from(new Set(projets.map(p => p.categorie).filter(Boolean)));
+    const mapped = cats.map(c => ({ value: c, label: c.charAt(0).toUpperCase() + c.slice(1) }));
+    return [{ value: 'tous', label: 'Tous les Projets' }, ...mapped];
+  }, [projets]);
+
   const filteredProjets = useMemo(() => {
     let list = filter === "tous" ? projets : projets.filter(p => p.categorie === filter);
     if (q && q.trim().length > 0) {
@@ -37,6 +45,17 @@ export default function Projets() {
     }
     return list;
   }, [projets, filter, q]);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }, [location]);
 
   return (
     <div>
@@ -63,7 +82,7 @@ export default function Projets() {
               <div className="text-sm text-gray-600">{projets.length} projet(s)</div>
             </div>
             <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((cat) => (
+              {(dynamicCategories || categories).map((cat) => (
                 <Button
                   key={cat.value}
                   variant={filter === cat.value ? "default" : "outline"}
@@ -109,12 +128,15 @@ export default function Projets() {
               {filteredProjets.map((projet, index) => (
                 <motion.div
                   key={projet.id}
+                  id={projet.id}
+                  layout
                   initial={{ opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <motion.div whileHover={{ scale: 1.02 }} className="h-full">
+                  <motion.div layout whileHover={{ scale: 1.02 }} className="h-full">
+                    <article id={projet.id}>
                     <Card onClick={() => { setSelectedProject(projet); setModalOpen(true); }} className="overflow-hidden transition-all h-full hover:shadow-2xl cursor-pointer">
                       <div className="relative group">
                         <img
@@ -171,6 +193,7 @@ export default function Projets() {
                         </div>
                       </div>
                     </Card>
+                    </article>
                   </motion.div>
                 </motion.div>
               ))}

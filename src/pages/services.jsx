@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "utils";
 import { motion } from "framer-motion";
 import MotionContainer, { fadeUp, HoverScale } from "components/ui/motion";
@@ -117,6 +117,16 @@ const services = [
 
 export default function Services() {
   const sectionRefs = useRef({});
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => {
+        sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }, [location]);
 
   const scrollToSection = (id) => {
     sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -213,6 +223,7 @@ export default function Services() {
       {/* Sections Détaillées */}
       {services.map((service, index) => (
         <section 
+          id={service.id}
           key={service.id}
           ref={(el) => sectionRefs.current[service.id] = el}
           className={`py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}

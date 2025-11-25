@@ -51,7 +51,7 @@ export default function Accueil() {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/programme_pach">
                 <HoverScale>
-                  <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+                  <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
                     Découvrir le Programme PACH
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
@@ -108,7 +108,7 @@ export default function Accueil() {
               Notre équipe d'experts est là pour vous accompagner à chaque étape
             </p>
             <Link to="/contact">
-              <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
                 Démarrer Mon Projet
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

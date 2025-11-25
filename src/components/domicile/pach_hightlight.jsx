@@ -62,7 +62,7 @@ export default function PACHHighlight() {
             </div>
 
             <Link to="/programmepach">
-              <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
                 Découvrir le Programme PACH
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

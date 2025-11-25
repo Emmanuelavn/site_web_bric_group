@@ -348,7 +348,7 @@ export default function Prestations() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to={createPageUrl("Contact")}>
-                <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
                   <Phone className="w-5 h-5 mr-2" />
                   Contactez-Nous
                 </Button>

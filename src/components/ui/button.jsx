@@ -13,9 +13,15 @@ const Button = React.forwardRef(({ className = '', variant = 'primary', size = '
     lg: 'px-6 py-3 text-lg'
   };
 
+  const composed = `${base} ${variants[variant] || variants.primary} ${sizes[size] || sizes.md} ${className}`;
+
+  // If the composed classes include a white background, ensure text is dark for readability.
+  const needsDarkText = /(^|\s)bg-white(\s|$)/.test(composed);
+  const finalClasses = `${composed} transform-gpu hover:-translate-y-0.5 ${needsDarkText ? 'text-[#2d7a4b]' : ''}`;
+
   return (
     <button
-      className={`${base} ${variants[variant] || variants.primary} ${sizes[size] || sizes.md} transform-gpu hover:-translate-y-0.5 ${className}`}
+      className={finalClasses}
       ref={ref}
       {...props}
     />

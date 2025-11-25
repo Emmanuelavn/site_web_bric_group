@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './layout/layout.jsx';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/acceuil.jsx';
 import Contact from './pages/contact.jsx';
 import About from './pages/about.jsx';
@@ -13,6 +14,7 @@ import Offrepach from './pages/offrepach.jsx';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="bg-blue-100 min-h-screen">
         <Layout>
           <Routes>

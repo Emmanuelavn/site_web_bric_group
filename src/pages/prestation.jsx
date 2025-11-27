@@ -24,7 +24,7 @@ const prestations = [
     icon: Droplets,
     titre: "Étanchéité Bâtiment et Industriel",
     description: "Protection optimale contre les infiltrations d'eau pour tous types de structures",
-    image: "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=800&q=80",
+    image: "/images/prestations/ethanche.jpg",
     color: "from-blue-500 to-blue-600",
     services: [
       "Étanchéité toiture terrasse",
@@ -40,7 +40,7 @@ const prestations = [
     icon: Paintbrush,
     titre: "Peinture Bâtiment et Industriel",
     description: "Finitions impeccables pour intérieurs et extérieurs résidentiels et industriels",
-    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=800&q=80",
+    image: "/images/prestations/plafond.jpg",
     color: "from-purple-500 to-purple-600",
     services: [
       "Peinture intérieure et extérieure",
@@ -56,7 +56,7 @@ const prestations = [
     icon: DoorOpen,
     titre: "Menuiseries",
     description: "Fabrication et pose de menuiseries bois, aluminium et PVC sur mesure",
-    image: "https://images.unsplash.com/photo-1534237710431-e2fc698436d0?w=800&q=80",
+    image: "/images/prestations/menuserie.jpg",
     color: "from-amber-500 to-amber-600",
     services: [
       "Portes et fenêtres",
@@ -72,7 +72,7 @@ const prestations = [
     icon: HomeIcon,
     titre: "Charpenterie et Couverture",
     description: "Conception et réalisation de charpentes et toitures durables",
-    image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=800&q=80",
+    image: "images/prestations/charpenterie.jpg",
     color: "from-orange-500 to-orange-600",
     services: [
       "Charpente traditionnelle",
@@ -120,7 +120,7 @@ const prestations = [
     icon: Zap,
     titre: "Électricité Courant Fort/Faible",
     description: "Installations électriques complètes conformes aux normes",
-    image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80",
+    image: "/images/prestations/electricite.jpg",
     color: "from-yellow-500 to-yellow-600",
     services: [
       "Installation électrique complète",
@@ -136,7 +136,7 @@ const prestations = [
     icon: Wrench,
     titre: "Plomberie-Sanitaire",
     description: "Installations sanitaires et plomberie de qualité professionnelle",
-    image: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=800&q=80",
+    image: "/images/prestations/plomberie.jpg",
     color: "from-cyan-500 to-cyan-600",
     services: [
       "Installation sanitaire complète",

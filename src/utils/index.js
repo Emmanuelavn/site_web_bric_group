@@ -10,7 +10,8 @@ export function createPageUrl(name) {
     Services: '/services',
     Apropos: '/apropos',
     OffrePACH: '/offrepach',
-    Offrepach: '/offrepach'
+    Offrepach: '/offrepach',
+    InscriptionPACH: '/inscription-pach'
   };
   // try case-insensitive lookup
   const key = Object.keys(map).find(k => k.toLowerCase() === String(name).toLowerCase());

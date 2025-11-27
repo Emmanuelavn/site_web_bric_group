@@ -1,44 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { MapPin, ArrowRight } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
+import localProjectsManifest from "../../entites/projets_auto.json";
+import PictureCard from "../ui/picture-card";
 
 export default function ProjectsGallery({ preview = false }) {
   const limit = preview ? 6 : undefined;
-  
-  // Mock data for projects
-  const projets = [
-    {
-      id: 1,
-      titre: "Rénovation complète d'une villa",
-      localisation: "Casablanca",
-      description: "Rénovation complète d'une villa familiale avec modernisation des espaces de vie.",
-      statut: 'termine',
-      image_principale: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800"
-    },
-    {
-      id: 2,
-      titre: "Construction d'un immeuble résidentiel",
-      localisation: "Rabat",
-      description: "Construction d'un immeuble de 4 étages avec appartements modernes.",
-      statut: 'termine',
-      image_principale: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800"
-    },
-    {
-      id: 3,
-      titre: "Extension d'un bureau commercial",
-      localisation: "Tanger",
-      description: "Extension et réaménagement d'un espace commercial.",
-      statut: 'en_cours',
-      image_principale: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+
+  function buildSrc(url, w) {
+    if (!url) return url;
+    try {
+      const [base, q] = url.split('?');
+      const params = new URLSearchParams(q || '');
+      if (base.startsWith('/')) return base;
+      params.set('w', String(w));
+      params.set('q', params.get('q') || '80');
+      return `${base}?${params.toString()}`;
+    } catch (e) {
+      return url;
     }
-  ];
-  
+  }
+
   const isLoading = false;
+
+  // Map local manifest shape to UI shape (same mapping as projects page)
+  let projets = [];
+  try {
+    const list = (localProjectsManifest && Array.isArray(localProjectsManifest.projects)) ? localProjectsManifest.projects : [];
+    projets = list.map(p => ({
+      id: p.id || p.slug || `${p.type}_${p.title}`,
+      titre: p.title || p.titre || p.slug,
+      image_principale: p.cover || (p.images && p.images[0] && (typeof p.images[0] === 'string' ? p.images[0] : p.images[0].url)) || null,
+      images: (p.images || []).map(i => (typeof i === 'string' ? i : i.url)).filter(Boolean),
+      categorie: p.type || p.categorie || 'autre',
+      description: p.shortDesc || p.description || '',
+      localisation: p.localisation || '',
+      superficie: p.superficie || '',
+      duree: p.duree || '',
+      statut: p.statut || 'termine'
+    }));
+  } catch (e) {
+    projets = [];
+  }
 
   return (
     <section className="py-20 bg-gray-50">
@@ -67,7 +74,7 @@ export default function ProjectsGallery({ preview = false }) {
               </Card>
             ))
           ) : projets.length > 0 ? (
-            projets.map((projet, index) => (
+            projets.slice(0, limit || projets.length).map((projet, index) => (
               <motion.div
                 key={projet.id}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -77,11 +84,7 @@ export default function ProjectsGallery({ preview = false }) {
               >
                 <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer border-none">
                   <div className="relative h-64 overflow-hidden">
-                    <img 
-                      src={projet.image_principale || "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800"}
-                      alt={projet.titre}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
+                    <PictureCard src={projet.image_principale} alt={projet.titre} buildSrc={buildSrc} />
                     <div className="absolute top-4 right-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                         projet.statut === 'termine' 

@@ -34,13 +34,23 @@ export default function ProjectModal({ open, onClose, project, initialImage = 0 
                         setLightboxOpen(true);
                       }}
                     />
+                    <div className="flex items-center justify-between mt-3 gap-3">
+                      <div className="grid grid-cols-2 gap-3 flex-1">
+                        {images.slice(1,5).map((src, i) => (
+                          <button key={i} className="overflow-hidden rounded-md" onClick={() => { setLightboxIndex(i + 1); setLightboxOpen(true); }}>
+                            <img src={src} alt={`${project.titre}-${i + 1}`} className="w-full h-28 object-cover" loading="lazy" />
+                          </button>
+                        ))}
+                      </div>
 
-                    <div className="grid grid-cols-2 gap-3 mt-3">
-                      {images.slice(1).map((src, i) => (
-                        <button key={i} className="overflow-hidden rounded-md" onClick={() => { setLightboxIndex(i + 1); setLightboxOpen(true); }}>
-                          <img src={src} alt={`${project.titre}-${i + 1}`} className="w-full h-36 object-cover" loading="lazy" />
+                      <div className="flex-shrink-0 ml-3">
+                        <button
+                          onClick={() => { setLightboxIndex(0); setLightboxOpen(true); }}
+                          className="px-4 py-2 bg-[#2d7a4b] text-white rounded-md hover:bg-[#255f3f] transition"
+                        >
+                          Voir toutes les photos ({images.length})
                         </button>
-                      ))}
+                      </div>
                     </div>
                   </>
                 ) : (

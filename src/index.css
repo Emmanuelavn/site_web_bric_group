@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* smooth scroll for in-page anchors */
+html {
+	scroll-behavior: smooth;
+}
+
 /* Animated gradient background utility */
 @keyframes gradientShift {
 	0% { background-position: 0% 50%; }

@@ -10,8 +10,12 @@ import About from './pages/about.jsx';
 import Prestations from './pages/prestation.jsx';
 import Services from './pages/services.jsx';
 import ProgrammePach from './pages/programme_pach.jsx';
+import InscriptionPachPage from './pages/inscription_pach.jsx';
 import Projects from './pages/projects.jsx';
 import Offrepach from './pages/offrepach.jsx';
+import ProjectDetail from './pages/project_detail.jsx';
+import DevisPage from './pages/devis.jsx';
+import Consulting from './pages/consulting.jsx';
 
 function App() {
   return (
@@ -37,7 +41,11 @@ function InnerApp() {
             <Route path="/prestations" element={<PageTransition reducedMotion={reduced}><Prestations /></PageTransition>} />
             <Route path="/services" element={<PageTransition reducedMotion={reduced}><Services /></PageTransition>} />
             <Route path="/programmepach" element={<PageTransition reducedMotion={reduced}><ProgrammePach /></PageTransition>} />
+            <Route path="/consulting" element={<PageTransition reducedMotion={reduced}><Consulting /></PageTransition>} />
             <Route path="/projets" element={<PageTransition reducedMotion={reduced}><Projects /></PageTransition>} />
+            <Route path="/projets/:id" element={<PageTransition reducedMotion={reduced}><ProjectDetail /></PageTransition>} />
+            <Route path="/devis" element={<PageTransition reducedMotion={reduced}><DevisPage /></PageTransition>} />
+            <Route path="/inscription-pach" element={<PageTransition reducedMotion={reduced}><InscriptionPachPage /></PageTransition>} />
             <Route path="/offrepach" element={<PageTransition reducedMotion={reduced}><Offrepach /></PageTransition>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

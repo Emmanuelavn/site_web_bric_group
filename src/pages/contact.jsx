@@ -9,6 +9,7 @@ import { MapPin, Phone, Mail, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { motion } from 'framer-motion';
 import MotionContainer, { fadeUp } from "components/ui/motion";
+import { sendContact } from "../api/contactClient";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,13 +17,32 @@ export default function Contact() {
     email: "",
     telephone: "",
     sujet: "",
-    message: ""
+    message: "",
+    hp: ""
   });
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
+  const mutation = useMutation({
+    mutationFn: (payload) => sendContact(payload),
+    onSuccess: (data) => {
+      setSuccess(true);
+      setError(null);
+      setFormData({ nom: "", email: "", telephone: "", sujet: "", message: "", hp: "" });
+      // Optionally log or handle waLink if returned
+      if (data && data.waLink) console.info('WA link:', data.waLink);
+    },
+    onError: (err) => {
+      setError(err?.message || 'Erreur lors de l\'envoi');
+      setSuccess(false);
+    }
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // createMutation.mutate(formData);
+    setSuccess(false);
+    setError(null);
+    mutation.mutate(formData);
   };
 
   const infos = [
@@ -96,7 +116,7 @@ export default function Contact() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <Card className="p-8 shadow-xl">
+            <Card id="contact-form" className="p-8 shadow-xl">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Envoyez-nous un Message
               </h2>
@@ -111,6 +131,15 @@ export default function Contact() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot field for bots (hidden) */}
+                <input type="text" name="hp" value={formData.hp || ''} onChange={(e) => setFormData({...formData, hp: e.target.value})} className="hidden" autoComplete="off" />
+
+                {error && (
+                  <Alert className="mb-4 bg-red-50 border-red-200">
+                    <AlertDescription className="text-red-800">{String(error)}</AlertDescription>
+                  </Alert>
+                )}
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label>Nom Complet *</Label>
@@ -172,8 +201,13 @@ export default function Contact() {
                   type="submit"
                   className="w-full bg-[#2d7a4b] hover:bg-[#4a9d6f] text-white"
                   size="lg"
+                  disabled={mutation.isLoading}
                 >
-                  {"Envoyer le Message"}
+                  {mutation.isLoading ? (
+                    <span className="flex items-center justify-center gap-2"><Loader2 className="w-4 h-4 animate-spin"/> Envoi...</span>
+                  ) : (
+                    "Envoyer le Message"
+                  )}
                 </Button>
               </form>
             </Card>

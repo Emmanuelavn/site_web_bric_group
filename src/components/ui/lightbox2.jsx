@@ -46,7 +46,18 @@ export default function Lightbox({ images = [], initialIndex = 0, open = false, 
     };
   }, [images.length]);
 
-  if (!open || !images || images.length === 0) return null;
+    if (!open || !images || images.length === 0) return null;
+
+    // helper to get url/alt from image entry which may be string or object
+    const getImageUrl = (img) => {
+      if (!img) return '';
+      return typeof img === 'string' ? img : (img.url || img.src || '');
+    };
+
+    const getImageAlt = (img, idx) => {
+      if (!img) return `image-${idx}`;
+      return typeof img === 'string' ? `image-${idx}` : (img.alt || img.title || `image-${idx}`);
+    };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
@@ -65,10 +76,10 @@ export default function Lightbox({ images = [], initialIndex = 0, open = false, 
 
         <AnimatePresence initial={false} mode="wait">
           <motion.img
-            key={images[index]}
-            src={images[index]}
+            key={getImageUrl(images[index]) || index}
+            src={getImageUrl(images[index])}
             loading="lazy"
-            alt={`image-${index}`}
+            alt={getImageAlt(images[index], index)}
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
@@ -78,7 +89,7 @@ export default function Lightbox({ images = [], initialIndex = 0, open = false, 
         </AnimatePresence>
 
         <div className="mt-3 flex items-center justify-center gap-2">
-          {images.map((_, i) => (
+          {images.map((img, i) => (
             <button key={i} onClick={() => setIndex(i)} aria-label={`Go to image ${i+1}`} className={`w-2 h-2 rounded-full ${i===index ? 'bg-white' : 'bg-white/60'}`} />
           ))}
         </div>

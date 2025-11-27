@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+// framer-motion imports consolidated below
 import MotionContainer, { fadeUp, HoverScale } from "../components/ui/motion";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -23,20 +23,68 @@ import ServicesOverview from "../components/domicile/service_vue_ensemble";
 import PACHHighlight from "../components/domicile/pach_hightlight";
 import TestimonialsSection from "../components/domicile/temoignage";
 import ProjectsGallery from "../components/domicile/galerie_projet";
+import { motion, AnimatePresence } from 'framer-motion';
+
+function BackgroundCarousel() {
+  const images = [
+    '/images/plan_acceuil/plan1.jpg',
+    '/images/plan_acceuil/plan2.jpg',
+    '/images/plan_acceuil/plan3.jpg',
+    '/images/plan_acceuil/plan4.jpg',
+    '/images/plan_acceuil/plan5.jpg',
+    '/images/plan_acceuil/plan6.jpg',
+  ];
+
+  const directions = [
+    { x: -40, y: 0 },
+    { x: 40, y: 0 },
+    { x: 0, y: -30 },
+    { x: 0, y: 30 }
+  ];
+
+  const [index, setIndex] = useState(0);
+  const [dirIndex, setDirIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex(i => (i + 1) % images.length);
+      setDirIndex(d => (d + 1) % directions.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  const current = images[index];
+  const motionFrom = directions[dirIndex];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={current}
+          src={current}
+          alt={`background-${index}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0, x: motionFrom.x, y: motionFrom.y, scale: 1.02 }}
+          animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+          exit={{ opacity: 0, x: -motionFrom.x, y: -motionFrom.y, scale: 1.02 }}
+          transition={{ duration: 1.2 }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Accueil() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background avec overlay */}
+        {/* Background carousel */}
+        <div className="absolute inset-0 z-0">
+          <BackgroundCarousel />
+        </div>
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#2d7a4b]/90 to-[#4d9fb8]/80 z-10"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/plan_acceuil/plan1.jpg')"
-          }}
-        ></div>
 
         {/* Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 text-center text-white">

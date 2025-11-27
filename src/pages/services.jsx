@@ -42,7 +42,7 @@ const services = [
     icon: Wrench,
     titre: "Rénovation",
     description: "Rénovation complète et modernisation de tous types de bâtiments",
-    image: "https://images.unsplash.com/photo-1581858726788-75bc0f1a4eae?w=800&q=80",
+    image: "/images/services/renovation.jpg",
     color: "from-orange-500 to-orange-600",
     features: [
       "Rénovation complète de bâtiments",
@@ -80,7 +80,7 @@ const services = [
     icon: Ruler,
     titre: "Études & Expertise",
     description: "Conception, étude et expertise technique pour tous vos projets",
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+    image: "/images/services/etude.jpg",
     color: "from-purple-500 to-purple-600",
     features: [
       "Études architecturales complètes",
@@ -376,7 +376,7 @@ export default function Services() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to={createPageUrl("Contact")}>
-                <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
                   <Phone className="w-5 h-5 mr-2" />
                   Contactez-Nous
                 </Button>

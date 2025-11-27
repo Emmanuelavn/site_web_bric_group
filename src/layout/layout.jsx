@@ -48,7 +48,18 @@ const navigationItems = [
       { title: "✨ Événementiel", url: "/services#evenementiel" },
     ]
   },
-  { title: "Programme PACH", url: "/programmepach" },
+  {
+    title: "Consulting",
+    url: "/consulting",
+    hasDropdown: true,
+    subItems: [
+      { title: "🎓 Formations & Consulting", url: "/consulting" },
+      { title: "💧 Étanchéité - Formation professionnelle", url: "/consulting#etancheite" },
+      { title: "🎨 Peinture - Techniques pro", url: "/consulting#peinture" },
+      { title: "🏢 Immobilier - Gestion & investissement", url: "/consulting#immobilier" },
+      { title: "🧾 Demande de formation", url: "/contact?topic=consulting" }
+    ]
+  },
   { title: "Projets", url: "/projets" },
   { title: "Contact", url: "/contact" },
 ];
@@ -128,7 +139,7 @@ export default function Layout({ children }) {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
-              {navigationItems.map((item) => (
+                {navigationItems.map((item) => (
                 item.hasDropdown ? (
                   <DropdownMenu key={item.title}>
                     <DropdownMenuTrigger asChild>
@@ -176,7 +187,7 @@ export default function Layout({ children }) {
               ))}
             </div>
 
-            {/* CTA Button Desktop */}
+            {/* CTA Button Desktop (Programme PACH) */}
             <div className="hidden lg:block">
               <Link to="/programmepach">
                 <Button className="bg-[#2d7a4b] hover:bg-[#4a9d6f] text-white">
@@ -224,9 +235,7 @@ export default function Layout({ children }) {
                     </div>
                   ))}
                   <Link to="/programmepach" onClick={() => setMobileMenuOpen(false)}>
-                    <Button className="w-full bg-[#2d7a4b] hover:bg-[#4a9d6f]">
-                      Programme PACH
-                    </Button>
+                    <Button className="w-full bg-[#2d7a4b] hover:bg-[#4a9d6f]">Programme PACH</Button>
                   </Link>
                 </div>
               </SheetContent>
@@ -234,6 +243,8 @@ export default function Layout({ children }) {
           </div>
         </div>
       </nav>
+
+      {/* (Moved) Devis CTA now placed in the footer Contact column for better discoverability */}
 
       {/* Main Content */}
       <main>{children}</main>
@@ -299,6 +310,13 @@ export default function Layout({ children }) {
                 <a href="#" className="w-8 h-8 bg-[#2d7a4b] rounded-full flex items-center justify-center hover:bg-[#4a9d6f] transition-colors">
                   <Linkedin className="w-4 h-4" />
                 </a>
+              </div>
+
+              {/* Devis CTA placed in footer for better placement */}
+              <div className="mt-6">
+                <Link to="/devis">
+                  <Button className="w-full bg-[#2d7a4b] hover:bg-[#4a9d6f] text-white">Demande de devis</Button>
+                </Link>
               </div>
             </div>
           </div>

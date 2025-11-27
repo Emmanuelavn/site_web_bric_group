@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "utils";
 import { motion } from "framer-motion";
 import { Button } from "components/ui/button";
 import { Card, CardContent } from "components/ui/card";
+import ProjectModal from "components/ui/project-modal";
 import { 
   Home, 
   CheckCircle, 
@@ -15,8 +16,25 @@ import {
   FileText,
   ArrowRight
 } from "lucide-react";
+import PictureCard from 'components/ui/picture-card';
 
-const offres = [
+import pachContent from "entites/pach_content.json";
+
+// If an auto-generated projects JSON exists (created by scripts/ingest_projects.js), prefer it.
+let autoProjects = null;
+try {
+  // require is synchronous and will throw if file not present
+    // eslint-disable-next-line global-require
+  const auto = require('entites/pach_projects_auto.json');
+  if (auto && Array.isArray(auto.projects)) autoProjects = auto.projects;
+} catch (e) {
+  autoProjects = null;
+}
+
+// Use content from `src/entites/pach_content.json` when available.
+// This keeps the page structure and styling intact while allowing
+// the textual content to be replaced by the PDF-derived text.
+const offres = (pachContent && pachContent.offres) || [
   {
     id: "F2_40m2",
     type: "F2",
@@ -53,14 +71,37 @@ const offres = [
   },
 ];
 
-const avantages = [
+const avantages = (pachContent && pachContent.avantages) || [
   { icon: TrendingDown, title: "Démarrez avec 50%", description: "Commencez votre projet avec seulement la moitié du montant total" },
   { icon: Clock, title: "Construction rapide", description: "Votre maison construite en seulement 6 mois" },
   { icon: Leaf, title: "Écologique", description: "Construction respectueuse de l'environnement" },
   { icon: Shield, title: "Financement flexible", description: "Remboursement sur 1 à 3 ans selon vos possibilités" },
 ];
 
+const advantageIcons = [TrendingDown, Clock, Leaf, Shield];
+const stepsIcons = [Home, FileText, Calculator, CheckCircle];
+
 export default function ProgrammePACH() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const ITEMS_PER_PAGE = 9;
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  function buildSrc(url, w) {
+    if (!url) return url;
+    try {
+      const [base, q] = url.split('?');
+      const params = new URLSearchParams(q || '');
+      // if url is local (starts with /), just return it (no resizing)
+      if (base.startsWith('/')) return base;
+      params.set('w', String(w));
+      params.set('q', params.get('q') || '80');
+      return `${base}?${params.toString()}`;
+    } catch (e) {
+      return url;
+    }
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -76,17 +117,16 @@ export default function ProgrammePACH() {
             className="text-center text-white"
           >
             <div className="inline-block bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
-              Programme Phare BRIC GROUP
+              { (pachContent && pachContent.heroBadge) || 'Programme Phare BRIC GROUP' }
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Programme PACH-BENIN
+              { (pachContent && pachContent.heroTitle) || 'Programme PACH-BENIN' }
             </h1>
             <p className="text-2xl mb-4 text-gray-100">
-              Programme d'Appui pour la Construction de l'Habitat au Bénin
+              { (pachContent && pachContent.heroSubtitle) || "Programme d'Appui pour la Construction de l'Habitat au Bénin" }
             </p>
             <p className="text-xl max-w-3xl mx-auto leading-relaxed">
-              Devenez propriétaire de votre maison avec un financement flexible. 
-              Commencez votre projet avec seulement 50% du montant total.
+              { (pachContent && pachContent.heroParagraph) || 'Devenez propriétaire de votre maison avec un financement flexible. Commencez votre projet avec seulement 50% du montant total.' }
             </p>
           </motion.div>
         </div>
@@ -119,7 +159,10 @@ export default function ProgrammePACH() {
                 <Card className="h-full hover:shadow-xl transition-all border-none bg-gradient-to-br from-white to-[#e8f5e9]">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-[#2d7a4b] rounded-xl flex items-center justify-center mx-auto mb-4">
-                      <avantage.icon className="w-8 h-8 text-white" />
+                      {(() => {
+                        const Icon = (avantage && avantage.icon) || advantageIcons[index] || TrendingDown;
+                        return <Icon className="w-8 h-8 text-white" />;
+                      })()}
                     </div>
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{avantage.title}</h3>
                     <p className="text-gray-600 text-sm">{avantage.description}</p>
@@ -132,7 +175,7 @@ export default function ProgrammePACH() {
       </section>
 
       {/* Nos Offres */}
-      <section className="py-20 bg-gray-50">
+      <section id="nos-projets-pach" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -140,73 +183,73 @@ export default function ProgrammePACH() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Nos Offres PACH</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Nos Projets PACH</h2>
             <p className="text-xl text-gray-600">
-              Choisissez l'appartement qui correspond à vos besoins
+              Découvrez les maisons déjà réalisées dans le cadre du Programme PACH. Cliquez sur une carte pour voir l'intérieur, l'extérieur et les détails.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {offres.map((offre, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {(() => {
+              const sourceList = (autoProjects && autoProjects.length > 0) ? autoProjects : (pachContent && pachContent.projets ? pachContent.projets : []);
+              return sourceList.slice(0, visibleCount).map((projet, index) => (
               <motion.div
-                key={offre.id}
-                initial={{ opacity: 0, scale: 0.9 }}
+                key={projet.id || index}
+                initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.06 }}
               >
-                <Card className={`overflow-hidden hover:shadow-2xl transition-all duration-300 border-none ${
-                  offre.featured ? 'ring-4 ring-[#2d7a4b] transform scale-105' : ''
-                }`}>
-                  {offre.featured && (
-                    <div className="bg-[#2d7a4b] text-white text-center py-2 font-medium text-sm">
-                      ⭐ Plus Populaire
-                    </div>
-                  )}
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={offre.image}
-                      alt={offre.nom}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded-full font-bold text-[#2d7a4b]">
-                      {offre.type}
+                <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-pointer border-none" onClick={() => { setSelectedProject(projet); setModalOpen(true); }}>
+                  <div className="relative h-64 overflow-hidden">
+                    <PictureCard src={projet.image_principale} alt={projet.titre} buildSrc={buildSrc} />
+                    <div className="absolute top-4 right-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${projet.statut === 'termine' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'}`}>
+                        {projet.statut === 'termine' ? 'Terminé' : 'En cours'}
+                      </span>
                     </div>
                   </div>
                   <CardContent className="p-6">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{offre.nom}</h3>
-                    <p className="text-gray-600 mb-4">{offre.description}</p>
-                    
-                    <div className="space-y-3 mb-6">
-                      <div className="flex justify-between items-center py-2 border-b">
-                        <span className="text-gray-600">Surface</span>
-                        <span className="font-semibold text-gray-900">{offre.surface}</span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b">
-                        <span className="text-gray-600">Prix Total</span>
-                        <span className="font-semibold text-gray-900">
-                          {offre.prix.toLocaleString('fr-FR')} FCFA
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center py-2">
-                        <span className="text-gray-600">Déboursé sec</span>
-                        <span className="font-bold text-[#2d7a4b] text-xl">
-                          {offre.acompte.toLocaleString('fr-FR')} FCFA
-                        </span>
-                      </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{projet.titre}</h3>
+                    <p className="text-gray-600 mb-3 text-sm line-clamp-3">{projet.description}</p>
+                    <div className="flex gap-3 items-center text-sm text-gray-600 mb-4">
+                      {projet.localisation && <div><strong>Localisation:</strong> {projet.localisation}</div>}
+                      {projet.superficie && <div><strong> • Superficie:</strong> {projet.superficie}</div>}
                     </div>
 
-                    <Link to={`${createPageUrl("OffrePACH")}?type=${offre.id}`}>
-                      <Button className="w-full bg-[#2d7a4b] hover:bg-[#4a9d6f] text-lg py-6">
-                        Demander un Devis
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Button>
-                    </Link>
+                    <div className="flex gap-3">
+                      <Link to={`/projets/${projet.id}`} onClick={(e) => e.stopPropagation()}>
+                        <button className="inline-flex items-center gap-2 px-4 py-3 bg-[#2d7a4b] text-white rounded-md hover:bg-[#255f3f] transition">
+                          Voir plus
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </Link>
+                      <Link to={`${createPageUrl("OffrePACH")}?type=${projet.id}`} onClick={(e) => e.stopPropagation()}>
+                        <button className="px-4 py-3 border border-gray-200 rounded-md hover:bg-gray-50 transition text-sm">
+                          Demander un devis
+                        </button>
+                      </Link>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
-            ))}
+              ));
+            })()}
           </div>
+
+          {(() => {
+            const sourceList = (autoProjects && autoProjects.length > 0) ? autoProjects : (pachContent && pachContent.projets ? pachContent.projets : []);
+            if (!sourceList || sourceList.length <= visibleCount) return null;
+            return (
+              <div className="mt-8 text-center">
+                <button onClick={() => setVisibleCount(c => Math.min(sourceList.length, c + ITEMS_PER_PAGE))} className="px-6 py-3 bg-[#2d7a4b] text-white rounded-md hover:bg-[#255f3f] transition">Charger plus</button>
+              </div>
+            );
+          })()}
+
+          {selectedProject && (
+            <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} project={selectedProject} />
+          )}
         </div>
       </section>
 
@@ -226,32 +269,28 @@ export default function ProgrammePACH() {
           </motion.div>
 
           <div className="space-y-8">
-            {[
+            {(pachContent && pachContent.etapes ? pachContent.etapes : [
               { 
                 step: "1", 
                 title: "Choisissez Votre Offre", 
-                description: "Sélectionnez le type d'appartement qui vous convient (F2, F3 ou F4)",
-                icon: Home
+                description: "Sélectionnez le type d'appartement qui vous convient (F2, F3 ou F4)"
               },
               { 
                 step: "2", 
                 title: "Inscription au Programme", 
-                description: "Remplissez le formulaire et fournissez les documents requis. Frais d'inscription: 50.000 FCFA",
-                icon: FileText
+                description: "Remplissez le formulaire et fournissez les documents requis. Frais d'inscription: 50.000 FCFA"
               },
               { 
                 step: "3", 
                 title: "Paiement Initial", 
-                description: "Payez 50% du montant initial selon les modalités convenues (12 mois)",
-                icon: Calculator
+                description: "Payez 50% du montant initial selon les modalités convenues (12 mois)"
               },
               { 
                 step: "4", 
                 title: "Construction & Financement", 
-                description: "Construction en 6 mois, puis remboursement des 50% restants sur 24 mois",
-                icon: CheckCircle
+                description: "Construction en 6 mois, puis remboursement des 50% restants sur 24 mois"
               },
-            ].map((etape, index) => (
+            ]).map((etape, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -30 }}
@@ -270,7 +309,10 @@ export default function ProgrammePACH() {
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 bg-[#e8f5e9] rounded-lg flex items-center justify-center flex-shrink-0">
-                          <etape.icon className="w-6 h-6 text-[#2d7a4b]" />
+                          {(() => {
+                            const Icon = (etape && etape.icon) || stepsIcons[index] || Home;
+                            return <Icon className="w-6 h-6 text-[#2d7a4b]" />;
+                          })()}
                         </div>
                         <div>
                           <h3 className="text-xl font-bold text-gray-900 mb-2">{etape.title}</h3>
@@ -295,18 +337,25 @@ export default function ProgrammePACH() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold mb-6">
-              Prêt à Devenir Propriétaire ?
+              { (pachContent && pachContent.ctaTitle) || 'Prêt à Devenir Propriétaire ?' }
             </h2>
             <p className="text-xl mb-8">
-              Rejoignez des centaines de Béninois qui ont déjà construit leur maison avec le Programme PACH
+              { (pachContent && pachContent.ctaParagraph) || 'Rejoignez des centaines de Béninois qui ont déjà construit leur maison avec le Programme PACH' }
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to={`${createPageUrl("OffrePACH")}?type=F3_90m2`}>
-                <Button size="lg" className="bg-white text-[#2d7a4b] hover:bg-gray-100 text-lg px-8 py-6">
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
                   Demander un Devis
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
+
+              <Link to={createPageUrl('InscriptionPACH')}>
+                <Button size="lg" variant="secondary" className="text-lg px-8 py-6 rounded-md">
+                  Souscrire au programme PACH
+                </Button>
+              </Link>
+
               <Link to={createPageUrl("Contact")}>
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#2d7a4b] text-lg px-8 py-6">
                   Nous Contacter
@@ -316,6 +365,8 @@ export default function ProgrammePACH() {
           </motion.div>
         </div>
       </section>
+      
+      {/* Inscription page link: modal removed in favor of dedicated page */}
     </div>
   );
 }

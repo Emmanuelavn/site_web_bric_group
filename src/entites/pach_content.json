@@ -1,0 +1,106 @@
+{
+  "heroBadge": "PACH - BENIN 2025",
+  "heroTitle": "Programme PACH-BENIN",
+  "heroSubtitle": "Envie d’acheter ou de construire votre maison ? BRIC GROUP vous accompagne avec son Programme d’Appui pour la Construction de l’Habitat au Bénin (PACH-BENIN).",
+  "heroParagraph": "Le PACH-BENIN est un programme d’appui pour vous accompagner et assurer la construction de votre maison sur une durée allant de 1 à 3 ans tout en finançant la moitié du montant du projet.",
+
+  "avantages": [
+    { "title": "Moins coûteux et à courte durée", "description": "Programme conçu pour réduire le coût et le temps de construction." },
+    { "title": "Construction écologique", "description": "Méthodes et matériaux respectueux de l'environnement." },
+    { "title": "Accès au réseau de forage", "description": "Possibilité de bénéficier d'un réseau de forage pour votre parcelle." },
+    { "title": "Devenez chez vous avec 50%", "description": "Accédez à la propriété avec seulement 50% du montant du projet." },
+    { "title": "Souplesse de remboursement", "description": "Modalités de remboursement adaptables et paiement mensuel possible." },
+    { "title": "Périodes de rénovation curative", "description": "Rénovations prévues après la réception provisoire pour assurer la qualité." }
+  ],
+
+  "offresIntro": "",
+  "offres": [
+    {
+      "id": "F2_30",
+      "type": "F2",
+      "nom": "Appartement F2 - Option 1",
+      "surface": "30m²",
+      "description": "1 chambre + salon + couloir, sans terrasse — Prix unitaire 90 000 FCFA/m² — Prix total: 2 700 000 FCFA",
+      "prix": 2700000
+    },
+    {
+      "id": "F2_40",
+      "type": "F2",
+      "nom": "Appartement F2 - Option 2",
+      "surface": "40m²",
+      "description": "1 chambre + salon + couloir + terrasse — Prix unitaire 90 000 FCFA/m² — Prix total: 3 600 000 FCFA",
+      "prix": 3600000
+    },
+    {
+      "id": "F3_60",
+      "type": "F3",
+      "nom": "Appartement F3 - Option 1",
+      "surface": "60m²",
+      "description": "2 chambres + salon, sans couloir + terrasse — Prix unitaire 90 000 FCFA/m² — Prix total: 5 400 000 FCFA",
+      "prix": 5400000
+    },
+    {
+      "id": "F3_80",
+      "type": "F3",
+      "nom": "Appartement F3 - Option 2",
+      "surface": "80m²",
+      "description": "2 chambres + salon + couloir + terrasse — Prix unitaire 90 000 FCFA/m² — Prix total: 7 200 000 FCFA",
+      "prix": 7200000
+    }
+  ],
+
+  "projets": [
+    {
+      "id": "PACH_001",
+      "titre": "Maison PACH - Cotonou",
+      "localisation": "Cotonou",
+      "description": "Maison individuelle livrée dans le cadre du Programme PACH : 3 chambres, 1 salon, finitions standard.",
+      "superficie": "100 m²",
+      "duree": "6 mois",
+      "statut": "termine",
+      "image_principale": "https://images.unsplash.com/photo-1560185127-6a6f1b8b8f2f?w=1200&q=80",
+      "images": [
+        { "url": "https://images.unsplash.com/photo-1560185127-6a6f1b8b8f2f?w=1200&q=80", "type": "exterieur", "alt": "Façade principale - Maison PACH Cotonou" },
+        { "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80", "type": "interieur", "alt": "Salon lumineux - Maison PACH Cotonou" },
+        { "url": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80", "type": "interieur", "alt": "Cuisine moderne - Maison PACH Cotonou" }
+      ]
+    },
+    {
+      "id": "PACH_002",
+      "titre": "Maison PACH - Porto-Novo",
+      "localisation": "Porto-Novo",
+      "description": "Appartement F3 livré, mis en œuvre avec matériaux écologiques et équipements standards.",
+      "superficie": "90 m²",
+      "duree": "6 mois",
+      "statut": "termine",
+      "image_principale": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
+      "images": [
+        { "url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80", "type": "exterieur", "alt": "Façade - Maison PACH Porto-Novo" },
+        { "url": "https://images.unsplash.com/photo-1582582494700-7f8d0b6d1b2a?w=1200&q=80", "type": "interieur", "alt": "Chambre confortable - Maison PACH Porto-Novo" }
+      ]
+    }
+  ],
+
+  "etapes": [
+    { "step": "1", "title": "Choisissez Votre Offre", "description": "Sélectionnez l'offre adaptée (F2, F3, F4 ou ensemble locatif)." },
+    { "step": "2", "title": "Inscription au Programme", "description": "Retirez la fiche d'inscription au secrétariat et fournissez les documents requis. Frais d'inscription: 100 000 FCFA." },
+    { "step": "3", "title": "Paiement Initial (Modalité 1)", "description": "La première modalité prévoit le paiement de 50% en 12 mois ventilés ainsi :\n• 50% de la moitié du montant du projet à payer au démarrage.\n• 30% de la moitié du montant du projet à payer après 3 mois (après les gros œuvres).\n• 10% de la moitié du montant du projet à payer après 2 mois (à la moitié des travaux du second œuvre).\n• 10% de la moitié du montant du projet à payer à la fin de tous les travaux.\nLa seconde modalité consiste à rembourser les 50% restants sur 24 mois par tranches mensuelles proportionnelles." },
+    { "step": "4", "title": "Construction & Financement", "description": "Construction estimée à 6 mois. Le reste du financement (50%) est remboursé selon la modalité choisie (24 mois ou prélèvement sur loyers pour les projets locatifs)." }
+  ],
+
+  "inscriptionDocuments": [
+    "Copie légalisée du CIN ou passeport en cours de validité",
+    "La convention de vente (original)",
+    "Le titre de propriété (attestation de recasement ou attestation de détention coutumière)",
+    "Deux photos d'identité",
+    "Une attestation de résidence ou une facture SBEE/SONEB portant le nom du client",
+    "Un RIB",
+    "Un certificat d'assurance d'invalidité",
+    "Le levé topographique de la parcelle",
+    "Frais d'inscription : 100 000 FCFA",
+    "Deux avaliseurs/garants munis d'une attestation de résidence, contact joignable et convention signée"
+  ],
+
+  "ctaTitle": "Prêt à Devenir Propriétaire ?",
+  "ctaParagraph": "Contactez BRIC GROUP pour démarrer votre projet PACH — siège Vedoko, contactez-nous par téléphone ou WhatsApp pour plus d'informations."
+}

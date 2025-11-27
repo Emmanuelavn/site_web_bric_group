@@ -5,16 +5,23 @@
     "@radix-ui/react-label": "^2.1.8",
     "@tailwindcss/postcss": "^4.1.17",
     "@tanstack/react-query": "^5.90.7",
+    "concurrently": "^8.2.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.553.0",
+    "nodemailer": "^6.9.4",
+    "pdf-parse": "^1.1.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.5",
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run serve",
+    "dev": "concurrently \"node server-dev.js\" \"react-scripts start\"",
     "build": "react-scripts build",
+    "serve": "npm run build && node server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -30,6 +37,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.91.1",
     "autoprefixer": "^10.4.21",

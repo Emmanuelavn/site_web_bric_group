@@ -1,0 +1,97 @@
+[
+  {
+    "id": "devis_1764252072552",
+    "createdAt": "2025-11-27T14:01:12.556Z",
+    "firstName": "jbujbu",
+    "lastName": "uiuu",
+    "email": "avannabenito2@gmail.com",
+    "phone": "0168731360",
+    "country": "Bénin",
+    "city": "atrokpocodji",
+    "projectTypes": [
+      "Construction neuve (maison, immeuble…)"
+    ],
+    "buildingType": "R1",
+    "message": "hhhh",
+    "attachments": [
+      "/uploads/devis_1764252072552/wifi_be.PNG"
+    ],
+    "status": "new"
+  },
+  {
+    "id": "devis_1764253479302",
+    "createdAt": "2025-11-27T14:24:39.306Z",
+    "firstName": "jbujbu",
+    "lastName": "uiuu",
+    "email": "avannabenito2@gmail.com",
+    "phone": "0168731360",
+    "country": "Bénin",
+    "city": "atrokpocodji",
+    "projectTypes": [
+      "Construction neuve (maison, immeuble…)"
+    ],
+    "buildingType": "R1",
+    "message": "gugugu",
+    "attachments": [
+      "/uploads/devis_1764253479302/wifi_be.PNG"
+    ],
+    "status": "new"
+  },
+  {
+    "id": "devis_1764254113067",
+    "createdAt": "2025-11-27T14:35:13.071Z",
+    "firstName": "jbujbu",
+    "lastName": "uiuu",
+    "email": "avannabenito2@gmail.com",
+    "phone": "0168731360",
+    "country": "Bénin",
+    "city": "atrokpocodji",
+    "projectTypes": [
+      "Construction neuve (maison, immeuble…)"
+    ],
+    "buildingType": "R1",
+    "message": "jjjjj",
+    "attachments": [
+      "/uploads/devis_1764254113067/wifi_be.PNG"
+    ],
+    "status": "new"
+  },
+  {
+    "id": "devis_1764255341864",
+    "createdAt": "2025-11-27T14:55:41.868Z",
+    "firstName": "jbujbu",
+    "lastName": "uiuu",
+    "email": "avannabenito2@gmail.com",
+    "phone": "0168731360",
+    "country": "Bénin",
+    "city": "atrokpocodji",
+    "projectTypes": [
+      "Construction neuve (maison, immeuble…)"
+    ],
+    "buildingType": "R1",
+    "message": "viuguogug",
+    "attachments": [
+      "/uploads/devis_1764255341864/wifi_be.PNG"
+    ],
+    "status": "new"
+  },
+  {
+    "id": "devis_1764261559067",
+    "createdAt": "2025-11-27T16:39:19.161Z",
+    "firstName": "jbujbu",
+    "lastName": "uiuu",
+    "email": "avannabenito2@gmail.com",
+    "phone": "0168731360",
+    "country": "Bénin",
+    "city": "atrokpocodji",
+    "projectTypes": [
+      "Construction neuve (maison, immeuble…)"
+    ],
+    "buildingType": "R1",
+    "message": "kboubuob",
+    "attachments": [
+      "/uploads/devis_1764261559067/wifi_be.PNG"
+    ],
+    "status": "new"
+  }
+]
